@@ -149,6 +149,8 @@ const copy = {
     footer: "All rights reserved.",
     downloadCV: "Download CV",
     cvUrl: "/CV_ENG.pdf",
+    footerId: "Electronic ID",
+    footerDegree: "College Degree",
     noticeText:
       "This site uses privacy-friendly analytics (Umami) that does not set cookies or track you across sites.",
     noticeOk: "Got it",
@@ -165,6 +167,8 @@ const copy = {
     footer: "Todos los derechos reservados.",
     downloadCV: "Descargar CV",
     cvUrl: "/CV_SPA.pdf",
+    footerId: "Cédula Electrónica",
+    footerDegree: "Título Universitario",
     noticeText:
       "Este sitio usa analítica respetuosa de la privacidad (Umami) que no establece cookies ni rastrea tu actividad entre sitios.",
     noticeOk: "Entendido",
@@ -364,6 +368,24 @@ export const Home = () => {
         <div className="footer-item">
           <a href={`mailto:${t.contactEmail}`}>{t.contactEmail}</a>
         </div>
+
+        <div className="footer-verif">
+          <a
+            href="/ConstanciaCedula_Blur_DanielMongeoteTlachy.png"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.footerId} ↗
+          </a>
+          <a
+            href="/T%C3%ADtuloElectr%C3%B3nico_Blur_DanielMongeoteTlachy.png"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t.footerDegree} ↗
+          </a>
+        </div>
+
         <p>
           © {new Date().getFullYear()} Daniel Tlachy. {t.footer}
         </p>
