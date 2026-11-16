@@ -138,6 +138,8 @@ const experience = [
 
 const copy = {
   en: {
+    navHome: "",
+    navLabel: "Main navigation",
     title: "Jr. Software Engineer",
     experienceHeading: "Relevant Experience:",
     docsHeading: "Additional Documentation:",
@@ -151,11 +153,14 @@ const copy = {
     cvUrl: "/CV_ENG.pdf",
     footerId: "Electronic ID",
     footerDegree: "College Degree",
+    themeToggle: "Toggle theme",
     noticeText:
       "This site uses privacy-friendly analytics (Umami) that does not set cookies or track you across sites.",
     noticeOk: "Got it",
   },
   es: {
+    navHome: "",
+    navLabel: "Navegación principal",
     title: "Ingeniero de Software Jr.",
     experienceHeading: "Experiencia Relevante:",
     docsHeading: "Documentación Adicional:",
@@ -169,6 +174,7 @@ const copy = {
     cvUrl: "/CV_SPA.pdf",
     footerId: "Cédula Electrónica",
     footerDegree: "Título Universitario",
+    themeToggle: "Cambiar tema",
     noticeText:
       "Este sitio usa analítica respetuosa de la privacidad (Umami) que no establece cookies ni rastrea tu actividad entre sitios.",
     noticeOk: "Entendido",
@@ -207,7 +213,10 @@ export const Home = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? "auto"
+      : "smooth";
+    window.scrollTo({ top: 0, behavior });
   };
 
   const dismissNotice = () => {
@@ -234,8 +243,8 @@ export const Home = () => {
           : "Language changed to English"}
       </p>
       <header className="site-header">
-        <nav className="site-nav" aria-label="Main navigation">
-          <a href="#">{t.navHome}</a>
+        <nav className="site-nav" aria-label={t.navLabel}>
+          <a href="#home">{t.navHome}</a>
         </nav>
 
         <div className="header-icons">
@@ -252,7 +261,8 @@ export const Home = () => {
           <button
             className="icon-btn"
             onClick={() => setIsDark((v) => !v)}
-            aria-label="Toggle theme"
+            aria-label={t.themeToggle}
+            aria-pressed={isDark}
           >
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -260,7 +270,7 @@ export const Home = () => {
       </header>
 
       <main className="main">
-        <section className="hero">
+        <section id="home" className="hero">
           <img
             className="hero-avatar"
             src="/avatar.png"
@@ -273,9 +283,9 @@ export const Home = () => {
           </a>
         </section>
 
-        <section id="experience" aria-label="Experience section">
+        <section id="experience" aria-labelledby="experience-heading">
           <div className="section-heading">
-            <h3>{t.experienceHeading}</h3>
+            <h3 id="experience-heading">{t.experienceHeading}</h3>
           </div>
 
           {experience.map((item) => (
@@ -310,9 +320,9 @@ export const Home = () => {
           ))}
         </section>
 
-        <section id="projects" aria-label="Projects section">
+        <section id="projects" aria-labelledby="projects-heading">
           <div className="section-heading">
-            <h3>{t.projectsHeading}</h3>
+            <h3 id="projects-heading">{t.projectsHeading}</h3>
             <a
               className="view-link"
               href="https://github.com/danieltlachy"
@@ -332,16 +342,18 @@ export const Home = () => {
               <p>{project.description[lang]}</p>
 
               <div className="project-links">
-                <a
-                  href={project.videoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
-                  <Play size={14} />
-                  {t.watch}
-                  <span className="proj-arrow">↗</span>
-                </a>
+                {project.videoUrl !== "#" && (
+                  <a
+                    href={project.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link"
+                  >
+                    <Play size={14} />
+                    {t.watch}
+                    <span className="proj-arrow">↗</span>
+                  </a>
+                )}
                 <a
                   href={project.codeUrl}
                   target="_blank"
